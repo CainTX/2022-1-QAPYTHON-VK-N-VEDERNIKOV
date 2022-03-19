@@ -1,32 +1,20 @@
 from conftest import *
 
-
 class TestBase(Base):
-    @pytest.mark.UI
-    def test_login(self):
-        current_driver = self.driver()
-        self.login(current_driver)
-        assert current_driver.current_url == "https://target.my.com/dashboard"
 
     @pytest.mark.UI
-    def test_logout(self):
-        current_driver = self.driver()
-        self.login(current_driver)
-        self.logout(current_driver)
-        assert current_driver.current_url == "https://target.my.com/"
-        current_driver.quit()
-
-    # Тесты для редактирования информации закинул в conftest
+    def test_login(self, driver):
+        self.login(driver)
 
     @pytest.mark.UI
-    def test_info(self):
-        current_driver = self.driver()
-        self.login(current_driver)
-        self.info(current_driver)
-        current_driver.quit()
+    def test_logout(self, driver):
+        self.login(driver)
+        self.logout(driver)
 
-    # Параметризация работает правильно, только если тесты будут зависимыми,
-    # а вот как переделать правильно - у меня нет идей
+    @pytest.mark.UI
+    def test_info(self, driver):
+        self.login(driver)
+        self.info(driver)
 
     testdata = [
         ("/segments", "Список сегментов", "https://target.my.com/segments/segments_list"),
@@ -36,7 +24,6 @@ class TestBase(Base):
 
     @pytest.mark.UI
     @pytest.mark.parametrize("href, s_text, url", testdata)
-    def test_switch(self, href, s_text, url):
-        current_driver = self.driver()
-        self.login(current_driver)
-        self.switch(current_driver, href, s_text, url)
+    def test_switch(self, driver, href, s_text, url):
+        self.login(driver)
+        self.switch(driver, href, s_text, url)
