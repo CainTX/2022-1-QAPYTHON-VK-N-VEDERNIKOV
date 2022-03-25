@@ -17,8 +17,6 @@ def driver():
     driver = webdriver.Chrome(service=service_chrome)
     driver.get(credentials.url)
     driver.maximize_window()
-    # Ключевое слово yeild работает только через фикстуру,
-    # используя yeild в классе я получаю ошибки, а вот return работает.
     yield driver
     driver.quit()
 
@@ -28,8 +26,8 @@ class Base(BasicSelectors, BasicLocators):
     def login(self, driver):
         self.wdWaitVisibility(self.responseHead_module_button)
         self.search_click(self.responseHead_module_button)
-        self.search_send(self.email_locator, credentials.email)
-        self.search_send(self.password_locator, credentials.email_password)
+        self.clear_send(self.email_locator, credentials.email)
+        self.clear_send(self.password_locator, credentials.email_password)
         self.search_click(self.authForm_module_button)
         assert driver.current_url == "https://target.my.com/dashboard"
 
@@ -60,14 +58,14 @@ class Base(BasicSelectors, BasicLocators):
         fio_check = driver.find_element(By.XPATH, f"// *[text() = '{fio_random}']").is_displayed()
         assert fio_check == True
 
-    def switch(self, current_driver, href, s_text, url):
+    def switch(self, driver, href, s_text, url):
 
         self.wdWaitVisibility(self.center_module_buttonsWrap)
         self.wdWaitInvisibility(self.spinner_large_custom_zindex)
 
-        current_driver.find_element(By.XPATH, f'//a[@href="{href}"]').click()
+        driver.find_element(By.XPATH, f'//a[@href="{href}"]').click()
 
-        WebDriverWait(current_driver, 20).until(expected_conditions.element_to_be_clickable(
+        WebDriverWait(driver, 5).until(expected_conditions.element_to_be_clickable(
             (By.XPATH, f'//span[contains(text(), "{s_text}")]')))
 
-        assert current_driver.current_url == url
+        assert driver.current_url == url
