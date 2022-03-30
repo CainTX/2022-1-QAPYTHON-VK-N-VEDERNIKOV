@@ -1,13 +1,10 @@
-import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium import webdriver
+from base import *
 
-class BasicSelectors:
 
-    @pytest.fixture(scope='function', autouse=True)
-    def setup(self, driver):
-        self.driver = driver
+class BasicSelectors(BaseCase):
 
     def find(self, locator):
         return self.driver.find_element(*locator)
