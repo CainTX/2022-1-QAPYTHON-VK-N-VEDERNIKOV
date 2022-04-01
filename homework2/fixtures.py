@@ -17,26 +17,15 @@ from selenium.webdriver.chrome.options import Options
 import credentials
 
 
-# Вопрос: Как из фикстуры ниже вернуть значение c_name?
-# При использовании фикстуры получаю ошибку TypeError: object of type 'function' has no len()
-# Хотя при assert'e выводится необходимое значение c_name
-
-# @pytest.fixture(scope='session')
-# def c_name():
-#     c_name = ("campaign_" + ''.join(random.choice(string.ascii_letters) for i in range(10)))
-#     return c_name
-
-# Приходится использовать глобальные переменные(
-
-c_name = ("campaign_" + ''.join(random.choice(string.ascii_letters) for i in range(10)))
-
-s_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
-
-s_name_a = s_name + "_audit"
-
-ss_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
-
-ss_name_a = ss_name + "_audit"
+# c_name = ("campaign_" + ''.join(random.choice(string.ascii_letters) for i in range(10)))
+#
+# s_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
+#
+# s_name_a = s_name + "_audit"
+#
+# ss_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
+#
+# ss_name_a = ss_name + "_audit"
 
 @pytest.fixture()
 def driver(config, temp_dir):
