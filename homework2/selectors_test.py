@@ -6,8 +6,10 @@ from selenium import webdriver
 import os
 import allure
 
+import locators_test
 
-class BasicSelectors:
+
+class BaseCase:
 
     @pytest.fixture(scope='function', autouse=True)
     def ui_report(self, driver, request, temp_dir):
@@ -28,6 +30,9 @@ class BasicSelectors:
     def setup(self, driver, logger):
         self.driver = driver
         self.logger = logger
+        self.locators = locators_test.BasicLocators()
+        self.segment_locators = locators_test.LocatorsSegment()
+        self.campaign_locators = locators_test.LocatorsCampaign()
 
     def find(self, locator):
         return self.driver.find_element(*locator)

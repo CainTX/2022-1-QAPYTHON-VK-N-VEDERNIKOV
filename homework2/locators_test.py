@@ -14,10 +14,8 @@ class BasicLocators:
     invalid_pass_check = (By.XPATH, "//div[text() = 'Invalid login or password']")
 
 
-
 class LocatorsSegment(RandomNameSegment):
 
-    # segment
     segment_nothing = (By.XPATH, "//li[@title = 'Ничего не найдено...']")
     segment_delete_a = (By.XPATH, "//div[text() = 'Удалить']")
     segment_span_name_static = (By.XPATH, f"//span[text() = 'Test_baza']")
@@ -47,7 +45,6 @@ class LocatorsSegment(RandomNameSegment):
 
 class LocatorsCampaign(RandomNameCampaign):
 
-    # campaign
     campaign_li_name = (By.XPATH, f"//li[@title = '{RandomNameCampaign.campaign_name()}']")
     campaign_hidden_wrap = (By.XPATH, "//div[contains(@class, 'js-buttons-hidden-wrap')]")
     campaign_option_module = (By.XPATH, "//div[contains(@class, 'optionListTitle-module-title')]")
@@ -64,8 +61,6 @@ class LocatorsCampaign(RandomNameCampaign):
     campaign_traffic = (By.XPATH, "//div[text() = 'Трафик']")
     campaign_create = (By.XPATH, "//div[text() = 'Создать кампанию']")
     campaign_dashboard = (By.XPATH, '//a[@href="/dashboard"]')
-    # campaign_module_disabled = (By.XPATH, '//div[contains(@class,"authForm-module-disabled")]')
-    # campaign_invalid_pass_check = (By.XPATH, "//div[text() = 'Invalid login or password']")
     campaign_center_buttonsWrap = (By.XPATH, '//ul[contains(@class, "center-module-buttonsWrap")]')
     company_spinner_zindex = (By.XPATH, "//div[contains(@class, 'company_spinner_zindex')]")
     os_image_path = (os.getcwd() + "\\x_test.png")

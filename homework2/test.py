@@ -1,7 +1,7 @@
 from conftest import *
 
 
-class TestBaseAuth(BaseAuth):
+class TestAuth(AuthCase):
     @pytest.mark.UI
     def test_negative_auth1(self, driver):
         self.negative_auth1()
@@ -11,14 +11,14 @@ class TestBaseAuth(BaseAuth):
         self.negative_auth2(driver)
 
 
-class TestBaseCampaign(BaseAuth, BaseCampaign):
+class TestCampaign(AuthCase, CampaignCase):
     @pytest.mark.UI
-    def test_create_company(self, driver):
+    def test_create_campaign(self, driver):
         self.login(driver)
-        self.create_company()
+        self.create_campaign()
 
 
-class TestBaseSegment(BaseAuth, BaseSegment):
+class TestSegment(AuthCase, SegmentCase):
     @pytest.mark.UI
     def test_create_segment(self, driver):
         self.login(driver)

@@ -17,16 +17,6 @@ from selenium.webdriver.chrome.options import Options
 import credentials
 
 
-# c_name = ("campaign_" + ''.join(random.choice(string.ascii_letters) for i in range(10)))
-#
-# s_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
-#
-# s_name_a = s_name + "_audit"
-#
-# ss_name = ("segment_" + ''.join(random.choice(string.ascii_letters) for g in range(10)))
-#
-# ss_name_a = ss_name + "_audit"
-
 @pytest.fixture()
 def driver(config, temp_dir):
     selenoid = config['selenoid']
