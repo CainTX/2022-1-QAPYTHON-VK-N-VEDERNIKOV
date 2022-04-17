@@ -1,5 +1,6 @@
-from fixtures import *
 from utility import *
+from selenium.webdriver.common.by import By
+import os
 
 
 class BasicLocators:

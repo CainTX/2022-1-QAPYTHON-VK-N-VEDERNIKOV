@@ -1,31 +1,31 @@
-from conftest import *
+from base import *
 
 
-class TestAuth(AuthCase):
+class TestAuth(BaseCase):
     @pytest.mark.UI
     def test_negative_auth1(self, driver):
-        self.negative_auth1()
+        self.base_page.negative_auth1()
 
     @pytest.mark.UI
     def test_negative_auth2(self, driver):
-        self.negative_auth2(driver)
+        self.base_page.negative_auth2(driver)
 
 
-class TestCampaign(AuthCase, CampaignCase):
+class TestCampaign(BaseCase):
     @pytest.mark.UI
     def test_create_campaign(self, driver):
-        self.login(driver)
-        self.create_campaign()
+        self.base_page.login(driver)
+        self.campaign_page.create_campaign()
 
 
-class TestSegment(AuthCase, SegmentCase):
+class TestSegment(BaseCase):
     @pytest.mark.UI
     def test_create_segment(self, driver):
-        self.login(driver)
-        self.create_segment(with_delete=False)
+        self.base_page.login(driver)
+        self.segment_page.create_segment(with_delete=False)
 
     @pytest.mark.UI
     def test_delete_segment(self, driver):
-        self.login(driver)
-        self.create_segment(driver)
-        self.delete_segment()
+        self.base_page.login(driver)
+        self.segment_page.create_segment(driver)
+        self.segment_page.delete_segment()

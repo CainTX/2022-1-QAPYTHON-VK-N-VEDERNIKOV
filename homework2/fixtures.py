@@ -1,7 +1,6 @@
 import pytest
 import logging
 import shutil
-import pickle
 import string
 import random
 import os
@@ -9,12 +8,26 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
 import credentials
+import allure
+from base import BasePage, CampaignPage, SegmentPage
+
+
+@pytest.fixture(scope='function', autouse=True)
+def ui_report(driver, request, temp_dir):
+    failed_test_count = request.session.testsfailed
+    yield
+    if request.session.testsfailed > failed_test_count:
+        browser_logs = os.path.join(temp_dir, 'browser.log')
+        with open(browser_logs, 'w') as f:
+            for i in driver.get_log('browser'):
+                f.write(f"{i['level']} - {i['source']}\n{i['message']}\n")
+        screenshot_path = os.path.join(temp_dir, 'failed.png')
+        driver.get_screenshot_as_file(screenshot_path)
+        allure.attach.file(screenshot_path, 'failed.png', allure.attachment_type.PNG)
+        with open(browser_logs, 'r') as f:
+            allure.attach(f.read(), 'test.log', allure.attachment_type.TEXT)
 
 
 @pytest.fixture()
@@ -93,15 +106,16 @@ def temp_dir(request):
     return temp_dir
 
 
-def pytest_addoption(parser):
-    parser.addoption('--selenoid', action='store_true')
-    parser.addoption('--vnc', action='store_true')
+@pytest.fixture
+def base_page(driver, logger):
+    return BasePage(driver=driver, logger=logger)
 
 
-def pytest_configure(config):
-    base_dir = (os.getcwd() + "\\Base_temp")
-    if os.path.exists(base_dir):
-        shutil.rmtree(base_dir)
-    os.makedirs(base_dir)
+@pytest.fixture
+def campaign_page(driver, logger):
+    return CampaignPage(driver=driver, logger=logger)
 
-    config.base_temp_dir = base_dir
+
+@pytest.fixture
+def segment_page(driver, logger):
+    return SegmentPage(driver=driver, logger=logger)
