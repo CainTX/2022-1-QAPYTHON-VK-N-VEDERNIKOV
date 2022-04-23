@@ -84,7 +84,7 @@ def test5(ip):
 logfile = open('access.log')
 python_test = open('python_test.txt', 'wt')
 request_count = 0
-method_dict = dict.fromkeys(['GET', 'PUT', 'HEAD', 'POST', 'POP'], 0)
+method_dict = dict.fromkeys(['GET', 'PUT', 'HEAD', 'POST'], 0)
 ip_dict = dict()
 url_dict = dict()
 list_test3 = [[0] * 10 for i in range(2)]
@@ -102,30 +102,30 @@ for line in logfile:
     status_code = int(assignment())
     size = assignment()
     url_dict[url] = url_dict.get(url, 0) + 1
-    ip_dict[ip] = ip_dict.get(ip, 0) + 1
     if method_dict.get(method) is not None:
         method_dict[method] += 1
     test3(url)
     status_param = status_code_check(status_code)
     if status_param == '5XX':
+        ip_dict[ip] = ip_dict.get(ip, 0) + 1
         test5(ip)
     elif status_param == '4XX':
         size_param = size_check(size)
-        if size_param == True:
+        if size_param is True:
             test4(int(size), url, status_code, ip)
 python_test.write('Общее количество запросов: \n' + str(request_count))
 python_test.write('\n\nОбщее количество запросов по типу: \n')
-python_test.write('GET: ' + str(method_dict['GET']) + ', PUT: ' + str(method_dict['PUT']) + ', HEAD: ' + str(
-    method_dict['HEAD']) + ', POST: ' + str(method_dict['POST']))
+for i in method_dict.keys():
+    python_test.write(str(i) + ': ' + str(method_dict[i]) + '\n')
 python_test.write('\n\nТоп 10 самых частых запросов: \n')
 for i in range(10):
-    python_test.write(str(i + 1) + ')' + ' ' + list_test3[0][i] + ' ' + str(list_test3[1][i]) + '\n')
+    python_test.write(list_test3[0][i] + ' ' + str(list_test3[1][i]) + '\n')
 python_test.write('\nТоп 5 самых больших по размеру запросов, которые завершились клиентской ошибкой (4XX)')
 for i in range(5):
-    python_test.write('\n' + str(i + 1) + ')' + ' ' + list_test4[0][i] + ' ' + str(list_test4[1][i]) + ' ' + str(
+    python_test.write('\n' + list_test4[0][i] + ' ' + str(list_test4[1][i]) + ' ' + str(
         list_test4[2][i]) + ' ' + list_test4[3][i])
 python_test.write('\n\nТоп 5 пользователей по количеству запросов, которые завершились серверной ошибкой (5XX)')
 for i in range(5):
-    python_test.write('\n' + str(i + 1) + ')' + ' ' + list_test5[0][i] + ' ' + str(list_test5[1][i]))
+    python_test.write('\n' + list_test5[0][i] + ' ' + str(list_test5[1][i]))
 logfile.close()
 python_test.close()

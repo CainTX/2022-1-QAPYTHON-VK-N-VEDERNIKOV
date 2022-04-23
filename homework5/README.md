@@ -12,7 +12,7 @@ awk -F\" '{print $2}' access.log | awk '{print $1}'| sort | uniq -c
 
 3й скрипт:
 Топ 10 самых частых запросов:
-awk -F\" '{print $2}' access.log | awk '{print $2}'| uniq -c | sort -n | tail -10
+awk -F\" '{print $2}' access.log | awk '{print $2}'| sort | uniq -c | sort -n | tail -10
 -F\" отделяет по " , затем мы сортируем и выводим сумированные уникальные значения с подсчетом -с, последние 10
 
 4й запрос: 
