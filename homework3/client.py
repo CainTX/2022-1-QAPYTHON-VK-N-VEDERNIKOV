@@ -3,8 +3,7 @@ import json
 import random
 import string
 import pytest
-from datetime import datetime
-import credentials
+import conftest
 
 
 class ApiClient:
@@ -36,20 +35,20 @@ class ApiClient:
             'Referer': "https://target.my.com/"
         }
         data = {
-            'email': credentials.email,
-            'password': credentials.email_password,
-            'continue': "https://target.my.com/auth/mycom?state=target_login%3D1%26ignore_opener%3D1#email"
+            'email': conftest.BaseCred.email,
+            'password': conftest.BaseCred.email_password,
+            'continue': "https://target.my.com/auth/mycom?state=target_login%3D1%26ignore_opener%3D1#email",
+            'failure': "https://account.my.com/login/"
         }
-        resp = requests.post(url='https://auth-ac.my.com/auth', headers=headers, data=data)
+        resp = requests.Session().post(url='https://auth-ac.my.com/auth', headers=headers, data=data)
+        self.mrcu = resp.history[0].cookies.get("mrcu")
         self.ssdc = resp.history[2].cookies.get("ssdc")
         self.mc = resp.history[2].cookies.get("mc")
-        self.mrcu = resp.history[0].cookies.get("mrcu")
         self.sdc = resp.history[4].cookies.get("sdc")
-        self.update_cookies(self)
-
+        assert self.sdc and self.mrcu and self.ssdc and self.mc is not None
+        assert resp.status_code == 200
 
     def get_csrf(self):
-        r = ApiClient.update_cookies(self)
-        resp = r.get(url='https://target.my.com/csrf/')
+        resp = self.update_cookies(self).get(url='https://target.my.com/csrf/')
         self.csrftoken = resp.cookies.get("csrftoken")
         self.update_cookies(self)
