@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import random
 import string
-# from conftest import UniqId
+from conftest import *
 
 
 class Segment:
@@ -25,10 +25,7 @@ class Segment:
     })
 
 
-class Campaign:
-
-    # UniqId.get_id(UniqId)
-    # site_id = UniqId.site_id
+class Campaign(UniqImage, UniqId):
 
     campaign_json = json.dumps({
         "name": f"Кампания {''.join(random.choice(string.ascii_letters) for i in range(10))} | {datetime.now().strftime('%Y-%m-%d | %H:%M:%S')}",
@@ -42,14 +39,13 @@ class Campaign:
             {
                 "urls": {
                     "primary": {
-                        # "id": f"{site_id}"
-                        "id": 12886410
+                        "id": f"{UniqId.get_url_id(UniqId)}"
                     }
                 },
                 "textblocks": {},
                 "content": {
                     "image_240x400": {
-                        "id": 8675863
+                        "id": f"{UniqImage.get_image_id(UniqImage)}"
                     }
                 }
             }
