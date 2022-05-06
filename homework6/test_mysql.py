@@ -73,7 +73,7 @@ class TestMySql(SetupMySql):
         assert len(count2) == 1
 
     def test_session4(self):
-        self.prepare_session1()
+        self.prepare_session4()
         count = self.get_length(FourthModel)
         assert len(count) == 5
         count2 = self.get_size(FourthModel, 1417)
