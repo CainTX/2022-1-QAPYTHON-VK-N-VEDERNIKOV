@@ -9,7 +9,7 @@ def pytest_configure(config):
     mysql_client.connect(db_created=True)
     if not hasattr(config, 'workerinput'):
         for i in range(1, 6):
-            mysql_client.create_table_banner(f"test{i}")
+            mysql_client.create_table_banner(f"table{i}")
 
     config.mysql_client = mysql_client
 

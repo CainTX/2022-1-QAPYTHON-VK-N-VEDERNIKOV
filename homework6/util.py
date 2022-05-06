@@ -26,7 +26,7 @@ def size_check(size):
     return int_check
 
 
-def test_3(url):
+def data_3(url):
     global list_test3
     place = 10
     match = 10
@@ -53,7 +53,7 @@ def status_code_check(status_code):
     return current_status_code
 
 
-def test_4(size, url, status_code, ip):
+def data_4(size, url, status_code, ip):
     global list_test4
     for i in range(5):
         if size > list_test4[i][3]:
@@ -67,7 +67,7 @@ def test_4(size, url, status_code, ip):
             break
 
 
-def test_5(ip):
+def data_5(ip):
     global list_test5
     place = 5
     match = 5
@@ -84,27 +84,27 @@ def test_5(ip):
         list_test5[place][2] = ip_dict[ip]
 
 
-def answer_test1():
+def result_data1():
     request_count_copy = copy.deepcopy(request_count)
     return request_count_copy
 
 
-def answer_test2():
+def result_data2():
     list_test2_copy = copy.deepcopy(list_test2)
     return list_test2_copy
 
 
-def answer_test3():
+def result_data3():
     list_test3_copy = copy.deepcopy(list_test3)
     return list_test3_copy
 
 
-def answer_test4():
+def result_data4():
     list_test4_copy = copy.deepcopy(list_test4)
     return list_test4_copy
 
 
-def answer_test5():
+def result_data5():
     list_test5_copy = copy.deepcopy(list_test5)
     return list_test5_copy
 
@@ -138,13 +138,13 @@ for line in logfile:
     ip_dict[ip] = ip_dict.get(ip, 0) + 1
     if method_dict.get(method) is not None:
         method_dict[method] += 1
-    test_3(url)
+    data_3(url)
     status_param = status_code_check(status_code)
     if status_param == '5XX':
-        test_5(ip)
+        data_5(ip)
     elif status_param == '4XX':
         size_param = size_check(size)
         if size_param:
-            test_4(int(size), url, status_code, ip)
+            data_4(int(size), url, status_code, ip)
 list_test2 = list(method_dict.items())
 logfile.close()
