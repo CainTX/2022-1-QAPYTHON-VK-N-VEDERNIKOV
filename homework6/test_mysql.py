@@ -1,4 +1,5 @@
 import pytest
+from util import *
 from client import MysqlClient
 from builder import MysqlBuilder
 from models import FirstModel, SecondModel, ThirdModel, FourthModel, FifthModel
@@ -29,60 +30,59 @@ class MyTest:
 
 class SetupMySql(MyTest):
 
-    def prepare_session1(self):
-        self.builder.session_builder1()
+    def prepare_total_requests(self):
+        self.builder.session_total_requests()
 
-    def prepare_session2(self):
+    def prepare_request_type(self):
         for i in range(4):
-            self.builder.session_builder2(i)
+            self.builder.session_request_type(i)
 
-    def prepare_session3(self):
+    def prepare_frequent_requests(self):
         for i in range(10):
-            self.builder.session_builder3(i)
+            self.builder.session_frequent_requests(i)
 
-    def prepare_session4(self):
+    def prepare_client_error(self):
         for i in range(5):
-            self.builder.session_builder4(i)
+            self.builder.session_client_error(i)
 
-    def prepare_session5(self):
+    def prepare_server_error(self):
         for i in range(5):
-            self.builder.session_builder5(i)
+            self.builder.session_server_error(i)
 
 
 class TestMySql(SetupMySql):
 
-    def test_session1(self):
-        self.prepare_session1()
+    def test_total_requests(self):
+        self.prepare_total_requests()
         count = self.get_length(FirstModel)
-        assert len(count) == 1
-        count2 = self.get_amount(FirstModel, 225133)
+        assert len(count) == len(result_data1())
+        count2 = self.get_amount(FirstModel, result_data1()[0][0])
         assert len(count2) == 1
 
-    def test_session2(self):
-        self.prepare_session2()
+    def test_request_type(self):
+        self.prepare_request_type()
         count = self.get_length(SecondModel)
-        assert len(count) == 4
-        count2 = self.get_amount(SecondModel, 122095)
+        assert len(count) == len(result_data2())
+        count2 = self.get_amount(SecondModel, result_data2()[0][1])
         assert len(count2) == 1
 
-    def test_session3(self):
-        self.prepare_session3()
+    def test_frequent_requests(self):
+        self.prepare_frequent_requests()
         count = self.get_length(ThirdModel)
-        assert len(count) == 10
-        count2 = self.get_size(ThirdModel, 103932)
+        assert len(count) == len(result_data3())
+        count2 = self.get_size(ThirdModel, result_data3()[0][2])
         assert len(count2) == 1
 
-    def test_session4(self):
-        self.prepare_session4()
+    def test_client_error(self):
+        self.prepare_client_error()
         count = self.get_length(FourthModel)
-        assert len(count) == 5
-        count2 = self.get_size(FourthModel, 1417)
+        assert len(count) == len(result_data4())
+        count2 = self.get_size(FourthModel, result_data4()[0][3])
         assert len(count2) == 4
 
-    def test_session5(self):
-        self.prepare_session5()
+    def test_server_error(self):
+        self.prepare_server_error()
         count = self.get_length(FifthModel)
-        assert len(count) == 5
-        count2 = self.get_amount(FifthModel, 606)
+        assert len(count) == len(result_data5())
+        count2 = self.get_amount(FifthModel, result_data5()[0][2])
         assert len(count2) == 1
-

@@ -6,7 +6,7 @@ class MysqlBuilder:
     def __init__(self, client):
         self.client = client
 
-    def session_builder1(self, amount=None):
+    def session_total_requests(self, amount=None):
         param = result_data1()
         amount = amount or param[0][0]
 
@@ -18,7 +18,7 @@ class MysqlBuilder:
 
         return result
 
-    def session_builder2(self, number, status_code=None, amount=None):
+    def session_request_type(self, number, status_code=None, amount=None):
         param = result_data2()
         status_code = status_code or param[number][0]
         amount = amount or param[number][1]
@@ -32,7 +32,7 @@ class MysqlBuilder:
 
         return result
 
-    def session_builder3(self, number, url=None, size=None):
+    def session_frequent_requests(self, number, url=None, size=None):
         param = result_data3()
         url = url or param[number][1]
         size = size or param[number][2]
@@ -46,7 +46,7 @@ class MysqlBuilder:
 
         return result
 
-    def session_builder4(self, number, url=None, status_code=None, size=None, ip=None):
+    def session_client_error(self, number, url=None, status_code=None, size=None, ip=None):
         param = result_data4()
         url = url or param[number][1]
         status_code = status_code or param[number][2]
@@ -64,7 +64,7 @@ class MysqlBuilder:
 
         return result
 
-    def session_builder5(self, number, ip=None, amount=None):
+    def session_server_error(self, number, ip=None, amount=None):
         param = result_data5()
         ip = ip or param[number][1]
         amount = amount or param[number][2]

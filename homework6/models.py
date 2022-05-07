@@ -6,7 +6,7 @@ Base = declarative_base()
 
 class FirstModel(Base):
 
-    __tablename__ = 'table1'
+    __tablename__ = 'Total number of requests'
     __table_args__ = {'mysql_charset': 'utf8'}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -15,7 +15,7 @@ class FirstModel(Base):
 
 class SecondModel(Base):
 
-    __tablename__ = 'table2'
+    __tablename__ = 'Total number of requests by type'
     __table_args__ = {'mysql_charset': 'utf8'}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -25,7 +25,7 @@ class SecondModel(Base):
 
 class ThirdModel(Base):
 
-    __tablename__ = 'table3'
+    __tablename__ = 'Top 10 most frequent requests'
     __table_args__ = {'mysql_charset': 'utf8'}
 
     position = Column(Integer, primary_key=True, autoincrement=True)
@@ -35,7 +35,7 @@ class ThirdModel(Base):
 
 class FourthModel(Base):
 
-    __tablename__ = 'table4'
+    __tablename__ = 'Top 5 largest requests resulted in a client error'
     __table_args__ = {'mysql_charset': 'utf8'}
 
     position = Column(Integer, primary_key=True, autoincrement=True)
@@ -47,7 +47,7 @@ class FourthModel(Base):
 
 class FifthModel(Base):
 
-    __tablename__ = 'table5'
+    __tablename__ = 'Top 5 requests that ended with a server error'
     __table_args__ = {'mysql_charset': 'utf8'}
 
     position = Column(Integer, primary_key=True, autoincrement=True)
