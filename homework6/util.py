@@ -1,4 +1,5 @@
 import copy
+import os
 
 
 def assignment():
@@ -109,7 +110,8 @@ def result_data5():
     return list_test5_copy
 
 
-logfile = open('access.log')
+base_dir = (os.getcwd() + "\\access.log")
+logfile = open(base_dir)
 request_count = [[0] for i in range(1)]
 method_dict = dict.fromkeys(['GET', 'PUT', 'HEAD', 'POST'], 0)
 ip_dict = dict()
