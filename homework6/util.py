@@ -112,7 +112,7 @@ def result_data5():
 
 # base_dir = (os.getcwd() + "\\access.log")
 # base_dir = (os.getcwd() + "/access.log")
-base_dir = ("/home/runner/work/2022-1-QAPYTHON-VK-N-VEDERNIKOV/homework6/access.log")
+base_dir = ("/home/runner/work/2022-1-QAPYTHON-VK-N-VEDERNIKOV/2022-1-QAPYTHON-VK-N-VEDERNIKOV/homework6/access.log")
 logfile = open(base_dir)
 request_count = [[0] for i in range(1)]
 method_dict = dict.fromkeys(['GET', 'PUT', 'HEAD', 'POST'], 0)
