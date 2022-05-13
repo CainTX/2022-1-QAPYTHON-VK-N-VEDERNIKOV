@@ -27,7 +27,7 @@ def size_check(size):
     return int_check
 
 
-def data_3(url):
+def data_frequent_requests(url):
     global list_test3
     place = 10
     match = 10
@@ -54,7 +54,7 @@ def status_code_check(status_code):
     return current_status_code
 
 
-def data_4(size, url, status_code, ip):
+def data_requests_client_error(size, url, status_code, ip):
     global list_test4
     for i in range(5):
         if size > list_test4[i][3]:
@@ -68,7 +68,7 @@ def data_4(size, url, status_code, ip):
             break
 
 
-def data_5(ip):
+def data_requests_server_error(ip):
     global list_test5
     place = 5
     match = 5
@@ -85,33 +85,31 @@ def data_5(ip):
         list_test5[place][2] = ip_dict[ip]
 
 
-def result_data1():
+def result_total_requests():
     request_count_copy = copy.deepcopy(request_count)
     return request_count_copy
 
 
-def result_data2():
+def result_total_requests_type():
     list_test2_copy = copy.deepcopy(list_test2)
     return list_test2_copy
 
 
-def result_data3():
+def result_top_frequent_requests():
     list_test3_copy = copy.deepcopy(list_test3)
     return list_test3_copy
 
 
-def result_data4():
+def result_requests_client_error():
     list_test4_copy = copy.deepcopy(list_test4)
     return list_test4_copy
 
 
-def result_data5():
+def result_requests_server_error():
     list_test5_copy = copy.deepcopy(list_test5)
     return list_test5_copy
 
 
-# base_dir = (os.getcwd() + "\\access.log")
-# base_dir = (os.getcwd() + "/access.log")
 base_dir = ("/home/runner/work/2022-1-QAPYTHON-VK-N-VEDERNIKOV/2022-1-QAPYTHON-VK-N-VEDERNIKOV/homework6/access.log")
 logfile = open(base_dir)
 request_count = [[0] for i in range(1)]
@@ -142,13 +140,13 @@ for line in logfile:
     ip_dict[ip] = ip_dict.get(ip, 0) + 1
     if method_dict.get(method) is not None:
         method_dict[method] += 1
-    data_3(url)
+    data_frequent_requests(url)
     status_param = status_code_check(status_code)
     if status_param == '5XX':
-        data_5(ip)
+        data_requests_server_error(ip)
     elif status_param == '4XX':
         size_param = size_check(size)
         if size_param:
-            data_4(int(size), url, status_code, ip)
+            data_requests_client_error(int(size), url, status_code, ip)
 list_test2 = list(method_dict.items())
 logfile.close()

@@ -55,34 +55,34 @@ class TestMySql(SetupMySql):
     def test_total_requests(self):
         self.prepare_total_requests()
         count = self.get_length(FirstModel)
-        assert len(count) == len(result_data1())
-        count2 = self.get_amount(FirstModel, result_data1()[0][0])
+        assert len(count) == len(result_total_requests())
+        count2 = self.get_amount(FirstModel, result_total_requests()[0][0])
         assert len(count2) == 1
 
     def test_request_type(self):
         self.prepare_request_type()
         count = self.get_length(SecondModel)
-        assert len(count) == len(result_data2())
-        count2 = self.get_amount(SecondModel, result_data2()[0][1])
+        assert len(count) == len(result_total_requests_type())
+        count2 = self.get_amount(SecondModel, result_total_requests_type()[0][1])
         assert len(count2) == 1
 
     def test_frequent_requests(self):
         self.prepare_frequent_requests()
         count = self.get_length(ThirdModel)
-        assert len(count) == len(result_data3())
-        count2 = self.get_size(ThirdModel, result_data3()[0][2])
+        assert len(count) == len(result_top_frequent_requests())
+        count2 = self.get_size(ThirdModel, result_top_frequent_requests()[0][2])
         assert len(count2) == 1
 
     def test_client_error(self):
         self.prepare_client_error()
         count = self.get_length(FourthModel)
-        assert len(count) == len(result_data4())
-        count2 = self.get_size(FourthModel, result_data4()[0][3])
+        assert len(count) == len(result_requests_client_error())
+        count2 = self.get_size(FourthModel, result_requests_client_error()[0][3])
         assert len(count2) == 4
 
     def test_server_error(self):
         self.prepare_server_error()
         count = self.get_length(FifthModel)
-        assert len(count) == len(result_data5())
-        count2 = self.get_amount(FifthModel, result_data5()[0][2])
+        assert len(count) == len(result_requests_server_error())
+        count2 = self.get_amount(FifthModel, result_requests_server_error()[0][2])
         assert len(count2) == 1

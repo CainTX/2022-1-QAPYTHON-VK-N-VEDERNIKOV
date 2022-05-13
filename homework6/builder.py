@@ -7,7 +7,7 @@ class MysqlBuilder:
         self.client = client
 
     def session_total_requests(self, amount=None):
-        param = result_data1()
+        param = result_total_requests()
         amount = amount or param[0][0]
 
         result = FirstModel(
@@ -19,7 +19,7 @@ class MysqlBuilder:
         return result
 
     def session_request_type(self, number, status_code=None, amount=None):
-        param = result_data2()
+        param = result_total_requests_type()
         status_code = status_code or param[number][0]
         amount = amount or param[number][1]
 
@@ -33,7 +33,7 @@ class MysqlBuilder:
         return result
 
     def session_frequent_requests(self, number, url=None, size=None):
-        param = result_data3()
+        param = result_top_frequent_requests()
         url = url or param[number][1]
         size = size or param[number][2]
 
@@ -47,7 +47,7 @@ class MysqlBuilder:
         return result
 
     def session_client_error(self, number, url=None, status_code=None, size=None, ip=None):
-        param = result_data4()
+        param = result_requests_client_error()
         url = url or param[number][1]
         status_code = status_code or param[number][2]
         size = size or param[number][3]
@@ -65,7 +65,7 @@ class MysqlBuilder:
         return result
 
     def session_server_error(self, number, ip=None, amount=None):
-        param = result_data5()
+        param = result_requests_server_error()
         ip = ip or param[number][1]
         amount = amount or param[number][2]
 
